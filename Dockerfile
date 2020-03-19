@@ -33,12 +33,14 @@ RUN apk update \
         nodejs \
         yarn \
         libpng-dev \
-		libmcrypt-dev \
+	    libmcrypt-dev \
+	    supervisor \
     && pecl install \
         imagick \
         swoole \
-		redis \
-		mcrypt-1.0.1 \
+	    redis \
+	    mcrypt-1.0.1 \
+	    xdebug \
     && docker-php-ext-install \
         curl \
         iconv \
@@ -54,8 +56,8 @@ RUN apk update \
         imagick \
         exif \
         swoole \
-		redis \
-		mcrypt \
+	    redis \
+	    mcrypt \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer \
     && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
@@ -71,6 +73,11 @@ RUN composer global require "hirak/prestissimo"
 RUN composer global require "laravel/envoy"
 
 RUN chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy
+
+# supervisord
+COPY supervisord.conf /etc/supervisord.conf
+
+COPY ./supervisord.d /etc/supervisord.d
 
 WORKDIR /var/www
 
