@@ -13,9 +13,6 @@ ENV PHPIZE_DEPS \
 		pkgconf \
 		re2c
 
-# 修改 apk 鏡像為阿里雲
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-
 # 安裝必要套件
 RUN apk update \
     && apk add --no-cache --virtual .build-deps \
