@@ -32,6 +32,7 @@ RUN apk update \
         libpng-dev \
 	    libmcrypt-dev \
 	    supervisor \
+	    nginx \
     && pecl install \
         imagick \
         swoole \
@@ -71,8 +72,17 @@ RUN composer global require "laravel/envoy"
 
 RUN chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy
 
+# Configure nginx
+COPY config/nginx.conf /etc/nginx/nginx.conf
+# Remove default server definition
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Configure PHP-FPM
+COPY config/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
+COPY config/php.ini /etc/php7/conf.d/custom.ini
+
 # supervisord
-COPY supervisord.conf /etc/supervisord.conf
+COPY config/supervisord.conf /etc/supervisord.conf
 
 COPY ./supervisord.d /etc/supervisord.d
 
