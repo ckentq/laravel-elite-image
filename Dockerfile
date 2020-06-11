@@ -78,8 +78,8 @@ COPY config/nginx.conf /etc/nginx/nginx.conf
 RUN rm /etc/nginx/conf.d/default.conf
 
 # Configure PHP-FPM
-COPY config/fpm-pool.conf /etc/php7/php-fpm.d/www.conf
-COPY config/php.ini /etc/php7/conf.d/custom.ini
+COPY config/www.conf /usr/local/etc/php-fpm.d/www.conf
+COPY config/php.ini /usr/local/etc/php/conf.d/custom.ini
 
 # supervisord
 COPY config/supervisord.conf /etc/supervisord.conf
