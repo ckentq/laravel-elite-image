@@ -21,7 +21,12 @@ RUN apk update \
         imagemagick-dev \
         libtool \
         libxml2-dev \
+		freetype-dev \
+		libpng-dev \
+		libjpeg-turbo-dev\
+	    libmcrypt-dev \
     && apk add --no-cache \
+        vim \
         curl \
         bash \
         binutils \
@@ -29,8 +34,10 @@ RUN apk update \
         imagemagick \
         nodejs \
         yarn \
-        libpng-dev \
-	    libmcrypt-dev \
+		freetype \
+        libpng \
+		libjpeg-turbo \
+        libmcrypt \
 	    supervisor \
 	    nginx \
     && pecl install \
@@ -39,6 +46,11 @@ RUN apk update \
 	    redis \
 	    mcrypt-1.0.1 \
 	    xdebug \
+	&& docker-php-ext-configure gd \
+		--with-gd \
+		--with-freetype-dir=/usr/include/ \
+		--with-png-dir=/usr/include/ \
+		--with-jpeg-dir=/usr/include/ \
     && docker-php-ext-install \
         curl \
         iconv \
@@ -50,6 +62,7 @@ RUN apk update \
         xml \
         zip \
         exif \
+        gd \
     && docker-php-ext-enable \
         imagick \
         exif \
