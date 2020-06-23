@@ -13,12 +13,13 @@ cp docker-compose.yml.example docker-compose.yml
 ```
 2. 啟動環境(請先設定好.env)
 
+```bash
 docker-compose up -d
 ```
 
 ### Dockerfile 常用
 
-## Nginx 
+#### Nginx 
 
 1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/config/nginx.conf`
 
@@ -28,7 +29,7 @@ docker-compose up -d
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
-## PHP
+#### PHP
 
 1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/config/php.ini`
 
@@ -43,7 +44,7 @@ COPY php.ini /usr/local/etc/php/conf.d/custom.ini
 
 ### `Envoy.blade.php` 啟動設定
 
-## 修改為 Nginx
+#### 修改為 Nginx
 
 ```bash
 supervisord -c /etc/supervisord.conf
@@ -51,21 +52,21 @@ supervisorctl start laravel-php-fpm:*
 supervisorctl start laravel-nginx:*
 ```
 
-## 修改為 swoole
+#### 修改為 swoole
 
 ```bash
 supervisord -c /etc/supervisord.conf
 supervisorctl start laravel-swoole:*
 ```
 
-## 啟動排程
+#### 啟動排程
 
 ```bash
 supervisord -c /etc/supervisord.conf
 supervisorctl start laravel-schedule:*
 ```
 
-## 啟動佇列處理
+#### 啟動佇列處理
 
 ```bash
 supervisord -c /etc/supervisord.conf
