@@ -99,6 +99,8 @@ COPY config/supervisord.conf /etc/supervisord.conf
 
 COPY ./supervisord.d /etc/supervisord.d
 
+RUN rm -rf /var/www/*
+
 WORKDIR /var/www
 
 CMD [ "envoy", "run", "production"]
