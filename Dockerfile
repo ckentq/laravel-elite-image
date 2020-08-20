@@ -40,6 +40,7 @@ RUN apk update \
         libmcrypt \
 	    supervisor \
 	    nginx \
+	    openjdk8-jre \
     && pecl install \
         imagick \
         swoole \
