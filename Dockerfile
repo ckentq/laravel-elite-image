@@ -37,15 +37,16 @@ RUN apk update \
 		freetype \
         libpng \
 		libjpeg-turbo \
+	    libzip-dev \
         libmcrypt \
 	    supervisor \
 	    nginx \
+        zip \
     && pecl install \
         imagick \
         swoole \
 	    redis \
-	    mcrypt-1.0.1 \
-	    xdebug \
+	    mcrypt-1.0.2 \
 	&& docker-php-ext-configure gd \
 		--with-gd \
 		--with-freetype-dir=/usr/include/ \
