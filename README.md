@@ -6,9 +6,9 @@
 1. 安裝設定檔
 
 ```bash
-wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/setup/Dockerfile
-wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/setup/Envoy.blade.php
-wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/setup/docker-compose.yml.example
+wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/Dockerfile
+wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/Envoy.blade.php
+wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
 2. 啟動環境(請先設定好.env)

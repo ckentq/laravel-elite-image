@@ -70,7 +70,7 @@ RUN apk update \
         swoole \
 	    redis \
 	    mcrypt \
-    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer \
+    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
     && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
