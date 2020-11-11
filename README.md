@@ -6,9 +6,9 @@
 1. 安裝設定檔
 
 ```bash
-wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/Dockerfile
-wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/Envoy.blade.php
-wget https://github.com/ckentq/laravel-elite-image/raw/v2.0.3/setup/docker-compose.yml.example
+wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/Dockerfile
+wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/Envoy.blade.php
+wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
 2. 啟動環境(請先設定好.env)
@@ -21,7 +21,7 @@ docker-compose up -d
 
 #### Nginx 
 
-1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/config/nginx.conf`
+1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/nginx.conf`
 
 2. 設定dockerfile
 
@@ -31,9 +31,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 #### PHP
 
-1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/config/php.ini`
+1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/v1.1.3/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/www.ini`
 
 3. 設定dockerfile
 

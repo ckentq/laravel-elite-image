@@ -1,4 +1,4 @@
-FROM larvata/laravel-elite-image:1.1.3
+FROM larvata/laravel-elite-image:latest
 
 # Composer install
 COPY composer.* /tmp/
