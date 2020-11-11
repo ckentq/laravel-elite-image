@@ -3,61 +3,40 @@ FROM php:7.3-fpm-alpine
 MAINTAINER Linc <qulamj@gmail.com>
 
 ENV PHPIZE_DEPS \
-		autoconf \
-		dpkg-dev dpkg \
-		file \
-		g++ \
-		gcc \
-		libc-dev \
-		make \
-		pkgconf \
-		re2c
+        g++ \
+        make \
+        autoconf \
+        re2c \
+        imagemagick-dev \
+        libmcrypt-dev \
+        libpng-dev \
+        curl-dev \
+        libxml2-dev
 
 # 安裝必要套件
 RUN apk update \
-    && apk add --no-cache --virtual .build-deps \
-        $PHPIZE_DEPS \
-        curl-dev \
-        imagemagick-dev \
-        libtool \
-        libxml2-dev \
-		freetype-dev \
-		libpng-dev \
-		libjpeg-turbo-dev\
-	    libmcrypt-dev \
+    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \
-        vim \
-        curl \
-        bash \
-        binutils \
-        tar \
         imagemagick \
-        nodejs \
-        yarn \
-		freetype \
-        libpng \
-		libjpeg-turbo \
-	    libzip-dev \
         libmcrypt \
-	    supervisor \
-	    nginx \
+        libpng \
+        curl \
+        libzip-dev \
         zip \
     && pecl install \
         imagick \
         swoole \
-	    redis \
-	    mcrypt-1.0.2 \
-	&& docker-php-ext-configure gd \
-		--with-gd \
-		--with-freetype-dir=/usr/include/ \
-		--with-png-dir=/usr/include/ \
-		--with-jpeg-dir=/usr/include/ \
+        redis \
+        mcrypt-1.0.2 \
+    && docker-php-ext-configure gd \
+        --with-gd \
     && docker-php-ext-install \
         curl \
         iconv \
         mbstring \
         pdo \
         pdo_mysql \
+        mysqli \
         pcntl \
         tokenizer \
         xml \
@@ -65,31 +44,28 @@ RUN apk update \
         exif \
         gd \
     && docker-php-ext-enable \
-        imagick \
-        exif \
         swoole \
-	    redis \
-	    mcrypt \
-    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
+        redis \
+        mcrypt \
     && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/*
 
-# 修改 composer 鏡像為日本
-RUN composer config -g repos.packagist composer https://packagist.jp
-
-# composer 加速工具
-RUN composer global require "hirak/prestissimo"
-
-# php 任務執行器
-RUN composer global require "laravel/envoy"
-
-RUN chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy
+# 安裝常用工具 && 安裝 composer && 修改 composer 鏡像為日本 && composer 加速工具 && php 任務執行器
+RUN apk update \
+    && apk add --no-cache supervisor nginx nodejs yarn vim bash tar \
+    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
+    && composer config -g repos.packagist composer https://packagist.jp \
+    && composer global require "hirak/prestissimo" \
+    && composer global require "laravel/envoy" \
+    && chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy \
+    && rm -rf /var/cache/apk/* \
+    && rm -rf /tmp/* \
+    && rm /etc/nginx/conf.d/default.conf \
+    && rm -rf /var/www/*
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
-# Remove default server definition
-RUN rm /etc/nginx/conf.d/default.conf
 
 # Configure PHP-FPM
 COPY config/www.conf /usr/local/etc/php-fpm.d/www.conf
@@ -99,8 +75,6 @@ COPY config/php.ini /usr/local/etc/php/conf.d/custom.ini
 COPY config/supervisord.conf /etc/supervisord.conf
 
 COPY ./supervisord.d /etc/supervisord.d
-
-RUN rm -rf /var/www/*
 
 WORKDIR /var/www
 
