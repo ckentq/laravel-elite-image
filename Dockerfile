@@ -7,9 +7,7 @@ ENV PHPIZE_DEPS \
         make \
         autoconf \
         re2c \
-        imagemagick-dev \
         libmcrypt-dev \
-        libpng-dev \
         curl-dev \
         libxml2-dev
 
@@ -17,19 +15,16 @@ ENV PHPIZE_DEPS \
 RUN apk update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \
-        imagemagick \
+        supervisor \
+        nginx \
         libmcrypt \
-        libpng \
         curl \
         libzip-dev \
         zip \
     && pecl install \
-        imagick \
         swoole \
         redis \
         mcrypt-1.0.2 \
-    && docker-php-ext-configure gd \
-        --with-gd \
     && docker-php-ext-install \
         curl \
         iconv \
@@ -37,12 +32,10 @@ RUN apk update \
         pdo \
         pdo_mysql \
         mysqli \
-        pcntl \
         tokenizer \
         xml \
         zip \
         exif \
-        gd \
     && docker-php-ext-enable \
         swoole \
         redis \
@@ -53,7 +46,7 @@ RUN apk update \
 
 # 安裝常用工具 && 安裝 composer && 修改 composer 鏡像為日本 && composer 加速工具 && php 任務執行器
 RUN apk update \
-    && apk add --no-cache supervisor nginx nodejs yarn vim bash tar \
+    && apk add --no-cache nodejs yarn vim bash tar \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
     && composer config -g repos.packagist composer https://packagist.jp \
     && composer global require "hirak/prestissimo" \
@@ -79,3 +72,4 @@ COPY ./supervisord.d /etc/supervisord.d
 WORKDIR /var/www
 
 CMD [ "envoy", "run", "production"]
+CMD ["tail", "-f", "/dev/null"]

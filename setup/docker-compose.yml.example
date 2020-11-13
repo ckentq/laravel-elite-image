@@ -14,7 +14,6 @@ services:
       - ./:/var/www:cached
     ports:
       - "80:80"
-      - "9001:9001"
     environment:
       - PHP_IDE_CONFIG=serverName=docker
     networks:

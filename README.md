@@ -11,6 +11,7 @@ wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/Envoy.bla
 wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
+
 2. 啟動環境(請先設定好.env)
 
 ```bash
@@ -74,7 +75,6 @@ supervisorctl start laravel-worker:*
 ```
 
 ### Supervisor 腳本
-supervisor啟動後預設 9001 port 可監看執行緒
 
 |腳本|說明|
 |---|---|
@@ -85,6 +85,34 @@ supervisor啟動後預設 9001 port 可監看執行緒
 |laravel-schedule|Laravel 排程|
 |laravel-worker|Laravel 佇列處理|
 |laravel-webpack|Webpack 熱更新(開發用)|
+
+### 已安裝工具
+
+|套件|說明|
+|---|---|
+|supervisor|進程管理工具|
+|curl|Http命令列工具|
+|vim|文件編輯工具|
+|tar|檔案壓縮工具|
+|nodejs|JavaScript 執行環境|
+|yarn|JavaScript 管理工具|
+
+### 已安裝 PHP 擴展
+
+|擴展|用途|
+|---|---|
+|swoole|Swoole服務|
+|redis|Redis連線|
+|mcrypt|加密|
+|iconv|中文字處理|
+|mbstring|中文字處理|
+|pdo|資料庫連線|
+|pdo_mysql|Mysql連線|
+|mysqli|Mysql連線|
+|tokenizer|laravel tinker|
+|xml|RSS、Excel...等功能|
+|zip|檔案壓縮(gzip)|
+|exif|讀取副檔名|
 
 ### 常見問題
 
