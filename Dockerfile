@@ -11,14 +11,15 @@ ENV PHPIZE_DEPS \
         curl-dev \
         libxml2-dev
 
-# 安裝必要套件
+# 安裝必要套件 && 安裝常用工具 && 安裝 composer && 修改 composer 鏡像為日本 && composer 加速工具 && php 任務執行器
 RUN apk update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \
+        vim \
+        bash \
         supervisor \
         nginx \
         libmcrypt \
-        curl \
         libzip-dev \
         zip \
     && pecl install \
@@ -40,18 +41,12 @@ RUN apk update \
         swoole \
         redis \
         mcrypt \
-    && apk del -f .build-deps \
-    && rm -rf /var/cache/apk/* \
-    && rm -rf /tmp/*
-
-# 安裝常用工具 && 安裝 composer && 修改 composer 鏡像為日本 && composer 加速工具 && php 任務執行器
-RUN apk update \
-    && apk add --no-cache nodejs yarn vim bash tar \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
     && composer config -g repos.packagist composer https://packagist.jp \
     && composer global require "hirak/prestissimo" \
     && composer global require "laravel/envoy" \
     && chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy \
+    && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/* \
     && rm /etc/nginx/conf.d/default.conf \
@@ -72,4 +67,3 @@ COPY ./supervisord.d /etc/supervisord.d
 WORKDIR /var/www
 
 CMD [ "envoy", "run", "production"]
-CMD ["tail", "-f", "/dev/null"]
