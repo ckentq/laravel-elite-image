@@ -41,6 +41,7 @@ RUN apk update \
         swoole \
         redis \
         mcrypt \
+    && chmod -R 755 /usr/local/lib/php/extensions \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
     && composer config -g repos.packagist composer https://packagist.jp \
     && composer global require "hirak/prestissimo" \
