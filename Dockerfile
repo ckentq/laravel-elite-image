@@ -15,6 +15,7 @@ ENV PHPIZE_DEPS \
 RUN apk update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \
+        libstdc++ \
         vim \
         bash \
         supervisor \
