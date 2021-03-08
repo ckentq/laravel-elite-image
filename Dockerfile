@@ -43,9 +43,7 @@ RUN apk update \
         redis \
         mcrypt \
     && chmod -R 755 /usr/local/lib/php/extensions \
-    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer --version=1.10.16 \
-    && composer config -g repos.packagist composer https://packagist.jp \
-    && composer global require "hirak/prestissimo" \
+    && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer \
     && composer global require "laravel/envoy" \
     && chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy \
     && apk del -f .build-deps \
