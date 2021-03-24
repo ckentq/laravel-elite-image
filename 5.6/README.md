@@ -6,9 +6,8 @@
 1. 安裝設定檔
 
 ```bash
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/Dockerfile
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/Envoy.blade.php
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/setup/docker-compose.yml.example
+wget https://github.com/ckentq/laravel-elite-image/raw/{version}/5.6/setup/Dockerfile
+wget https://github.com/ckentq/laravel-elite-image/raw/{version}/5.6/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
 
@@ -22,7 +21,7 @@ docker-compose up -d
 
 #### Nginx 
 
-1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/nginx.conf`
+1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/5.6/config/nginx.conf`
 
 2. 設定dockerfile
 
@@ -32,46 +31,15 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 #### PHP
 
-1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/php.ini`
+1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/5.6/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/5.6/config/www.ini`
 
 3. 設定dockerfile
 
 ```dockerfile
 COPY www.conf /usr/local/etc/php-fpm.d/www.conf
 COPY php.ini /usr/local/etc/php/conf.d/custom.ini
-```
-
-### `Envoy.blade.php` 啟動設定
-
-#### 修改為 Nginx
-
-```bash
-supervisord -c /etc/supervisord.conf
-supervisorctl start laravel-php-fpm:*
-supervisorctl start laravel-nginx:*
-```
-
-#### 修改為 swoole
-
-```bash
-supervisord -c /etc/supervisord.conf
-supervisorctl start laravel-swoole:*
-```
-
-#### 啟動排程
-
-```bash
-supervisord -c /etc/supervisord.conf
-supervisorctl start laravel-schedule:*
-```
-
-#### 啟動佇列處理
-
-```bash
-supervisord -c /etc/supervisord.conf
-supervisorctl start laravel-worker:*
 ```
 
 ### Supervisor 腳本
@@ -113,14 +81,3 @@ supervisorctl start laravel-worker:*
 |xml|RSS、Excel...等功能|
 |zip|檔案壓縮(gzip)|
 |exif|讀取副檔名|
-
-### 常見問題
-
-Ｑ：環境變數未更改
-Ａ：請重新起動
-
-Ｑ：無法連上這個網站
-Ａ：請確定已設定好**env**與 `composer install` 並 重新起動
-
-Ｑ：No application encryption key has been specified.
-Ａ：請設定APP Key `php artisan key:generate`

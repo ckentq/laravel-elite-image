@@ -1,4 +1,4 @@
-FROM larvata/laravel-elite-image:latest
+FROM larvata/laravel-elite-image:latest-php7.3
 
 # # 圖片處理
 # RUN apk update \

@@ -1,4 +1,4 @@
-FROM larvata/laravel-elite-image:latest-php5.6
+FROM larvata/laravel-elite-image:latest-php7.2
 
 # # 圖片處理
 # RUN apk update \
@@ -18,9 +18,19 @@ FROM larvata/laravel-elite-image:latest-php5.6
 #     && rm -rf /var/cache/apk/* \
 #     && rm -rf /tmp/*
 
+# Composer install
+COPY composer.* /tmp/
+RUN cd /tmp && composer install --no-dev --no-autoloader
+
 # Yarn install
 # COPY package.json yarn.* /tmp/
 # RUN cd /tmp && yarn --ignore-engines install
 
 # Copy project
 COPY ./ /var/www
+
+# Composer load && Yarn build
+# RUN rm -rf /var/www/vendor && rm -rf /var/www/node_modules && mv /tmp/vendor/ /var/www && mv /tmp/node_modules/ /var/www && composer dump-autoload && yarn production
+
+# Composer load
+RUN rm -rf /var/www/vendor && mv /tmp/vendor/ /var/www && composer dump-autoload
