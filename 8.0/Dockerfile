@@ -1,4 +1,6 @@
-FROM php:8.0.3-fpm-alpine
+FROM php:8.0-fpm-alpine
+
+MAINTAINER Linc <qulamj@gmail.com>
 
 ENV PHPIZE_DEPS \
         g++ \
@@ -7,9 +9,10 @@ ENV PHPIZE_DEPS \
         re2c \
         libmcrypt-dev \
         curl-dev \
-        libxml2-dev
+        libxml2-dev \
+        oniguruma-dev
 
-# Packages
+# 安裝必要套件 && 安裝常用工具 && 安裝 composer && php 任務執行器
 RUN apk update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \
@@ -21,15 +24,12 @@ RUN apk update \
         libmcrypt \
         libzip-dev \
         zip \
-
     && pecl install \
         swoole \
         redis \
-        mcrypt-1.0.2 \
-
+        mcrypt-1.0.4 \
     && docker-php-ext-install \
         curl \
-        bcmath \
         iconv \
         mbstring \
         pdo \
@@ -39,12 +39,10 @@ RUN apk update \
         xml \
         zip \
         exif \
-
     && docker-php-ext-enable \
         swoole \
         redis \
         mcrypt \
-
     && chmod -R 755 /usr/local/lib/php/extensions \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer \
     && composer global require "laravel/envoy" \

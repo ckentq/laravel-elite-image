@@ -11,7 +11,7 @@ ENV PHPIZE_DEPS \
         curl-dev \
         libxml2-dev
 
-# 安裝必要套件 && 安裝常用工具 && 安裝 composer && 修改 composer 鏡像為日本 && composer 加速工具 && php 任務執行器
+# 安裝必要套件 && 安裝常用工具 && 安裝 composer && php 任務執行器
 RUN apk update \
     && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
     && apk add --no-cache \

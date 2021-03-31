@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.4-fpm-alpine
 
 MAINTAINER Linc <qulamj@gmail.com>
 
@@ -9,7 +9,8 @@ ENV PHPIZE_DEPS \
         re2c \
         libmcrypt-dev \
         curl-dev \
-        libxml2-dev
+        libxml2-dev \
+        oniguruma-dev
 
 # 安裝必要套件 && 安裝常用工具 && 安裝 composer && php 任務執行器
 RUN apk update \
@@ -26,7 +27,7 @@ RUN apk update \
     && pecl install \
         swoole \
         redis \
-        mcrypt-1.0.2 \
+        mcrypt-1.0.4 \
     && docker-php-ext-install \
         curl \
         iconv \
