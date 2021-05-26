@@ -20,7 +20,7 @@ FROM larvata/laravel-elite-image:latest-php7.4
 
 # Composer install
 COPY composer.* /tmp/
-RUN cd /tmp && composer install --no-dev --no-autoloader
+RUN cd /tmp && COMPOSER_MEMORY_LIMIT=-1 composer install --no-dev --no-autoloader
 
 # Yarn install
 # COPY package.json yarn.* /tmp/

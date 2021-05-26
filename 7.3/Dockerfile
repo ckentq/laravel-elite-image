@@ -57,7 +57,7 @@ COPY config/nginx.conf /etc/nginx/nginx.conf
 
 # Configure PHP-FPM
 COPY config/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY config/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY config/php.ini /usr/local/etc/php/php.ini
 
 # supervisord
 COPY config/supervisord.conf /etc/supervisord.conf
