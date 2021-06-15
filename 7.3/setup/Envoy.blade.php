@@ -29,22 +29,26 @@ php artisan route:cache
 php artisan view:cache
 @endtask
 
-@task('php-fpm')
-supervisorctl start laravel-nginx:*
-@endtask
-
 @task('nginx')
 supervisorctl start laravel-nginx:*
 @endtask
 
-@task('laravel-swoole')
+@task('nginx-swoole')
+supervisorctl start laravel-nginx-swoole:*
+@endtask
+
+@task('php-fpm')
+supervisorctl start laravel-php-fpm:*
+@endtask
+
+@task('swoole')
 supervisorctl start laravel-swoole:*
 @endtask
 
-@task('laravel-schedule')
+@task('schedule')
 php /var/www/artisan schedule:run >> /dev/null 2>&1;
 @endtask
 
-@task('laravel-worker')
+@task('worker')
 supervisorctl start laravel-worker:*
 @endtask
