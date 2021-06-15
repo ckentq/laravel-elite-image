@@ -50,7 +50,9 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 1. 下載Nginx設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/nginx-swoole.conf`
 
-2. 設定dockerfile
+2. 修改 `nginx-swoole.conf` 70 行的 swoole port(預設為7780)
+
+3. 設定dockerfile
 
 ```dockerfile
 COPY nginx-swoole.conf /etc/nginx/nginx.conf
