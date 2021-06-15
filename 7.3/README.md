@@ -6,9 +6,9 @@
 1. 安裝設定檔
 
 ```bash
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/setup/Dockerfile
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/setup/Envoy.blade.php
-wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/setup/docker-compose.yml.example
+wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/setup/Dockerfile
+wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/setup/Envoy.blade.php
+wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
 
@@ -22,7 +22,7 @@ docker-compose up -d
 
 #### Nginx 
 
-1. 下載Nginx設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/config/nginx.conf`
+1. 下載Nginx設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/nginx.conf`
 
 2. 設定dockerfile
 
@@ -30,11 +30,21 @@ docker-compose up -d
 COPY nginx.conf /etc/nginx/nginx.conf
 ```
 
+#### Nginx+Swoole
+
+1. 下載Nginx設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/nginx-swoole.conf`
+
+2. 設定dockerfile
+
+```dockerfile
+COPY nginx-swoole.conf /etc/nginx/nginx.conf
+```
+
 #### PHP
 
-1. 下載PHP設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/config/php.ini`
+1. 下載PHP設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/ckentq/laravel-elite-image/raw/{version}/7.3/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/www.ini`
 
 3. 設定dockerfile
 
