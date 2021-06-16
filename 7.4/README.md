@@ -40,7 +40,7 @@ docker-compose up -d
 
 1. 下載Nginx設定檔
 ```bash
-# Default (Nginx + PHP-FPM)
+# Nginx + PHP-FPM (default)
 wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/nginx.conf
 # Nginx + Swoole
 wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/nginx-swoole.conf
@@ -49,7 +49,7 @@ wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/n
 2. 設定dockerfile
 
 ```dockerfile
-# Default (Nginx + PHP-FPM)
+# Nginx + PHP-FPM (default)
 COPY nginx.conf /etc/nginx/nginx.conf
 # Nginx + Swoole
 COPY nginx-swoole.conf /etc/nginx/nginx-swoole.conf
@@ -90,7 +90,9 @@ COPY example.conf /etc/supervisord.d/example.conf
 ### 啟動腳本
 通過修改 `Envoy.blade.php` 設定程式啟動的流程
 
-#### 啟動 Nginx + PHP-FPM
+#### 啟動 Nginx (Port 80) + PHP-FPM (Port 9000)
+
+你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
 
 ```bash
 supervisord -c /etc/supervisord.conf
@@ -98,10 +100,13 @@ supervisorctl start laravel-php-fpm:*
 supervisorctl start laravel-nginx:*
 ```
 
-#### 啟動 Nginx + Swoole
+#### 啟動 Nginx (Port 80) + Swoole (Port 7780)
+
+你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
 
 ```bash
 supervisord -c /etc/supervisord.conf
+supervisorctl start laravel-php-fpm:*
 supervisorctl start laravel-swoole:*
 supervisorctl start laravel-nginx-swoole:*
 ```
@@ -124,7 +129,7 @@ supervisorctl start laravel-worker:*
 
 |腳本|說明|
 |---|---|
-|laravel-nginx|Nginx 服務(Default PHP-FPM)|
+|laravel-nginx|Nginx 服務(PHP-FPM)|
 |laravel-nginx-swoole|Nginx 服務(Swoole)|
 |laravel-php-fpm|PHP-FPM 服務|
 |laravel-server|PHP Server 服務|
