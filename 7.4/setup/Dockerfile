@@ -6,7 +6,7 @@ FROM larvata/laravel-elite-image:latest-php7.4
 #     && apk add --no-cache freetype-dev libpng jpeg-dev imagemagick imagemagick-dev \
 #     && docker-php-ext-configure gd --with-freetype --with-jpeg \
 #     && docker-php-ext-install gd \
-#     && pecl install imagick \
+#     && pecl install imagick-3.4.4 \
 #     && docker-php-ext-enable imagick \
 #     && apk del -f .build-deps \
 #     && rm -rf /var/cache/apk/* \
