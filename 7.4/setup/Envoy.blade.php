@@ -1,12 +1,14 @@
 @servers(['web' => '127.0.0.1'])
 
 @task('production')
-supervisord -c /etc/supervisord.conf
+{{--OPCache設定--}}
+sed -i 's/opcache.validate_timestamps=1/opcache.validate_timestamps=0/g' /usr/local/etc/php/php.ini
 {{--基本設定--}}
 php artisan storage:link
 php artisan route:cache
 php artisan view:cache
 {{--啟動設定--}}
+supervisord -c /etc/supervisord.conf
 supervisorctl start laravel-php-fpm:*
 supervisorctl start laravel-nginx:*
 
@@ -14,8 +16,8 @@ tail -f /dev/null
 @endtask
 
 @task('local')
-supervisord -c /etc/supervisord.conf
 {{--啟動設定--}}
+supervisord -c /etc/supervisord.conf
 supervisorctl start laravel-php-fpm:*
 supervisorctl start laravel-nginx:*
 

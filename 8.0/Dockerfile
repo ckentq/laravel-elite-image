@@ -28,6 +28,7 @@ RUN apk update \
         swoole \
         redis \
         mcrypt-1.0.4 \
+    && docker-php-ext-configure opcache --enable-opcache \
     && docker-php-ext-install \
         curl \
         iconv \
@@ -39,6 +40,7 @@ RUN apk update \
         xml \
         zip \
         exif \
+        opcache \
     && docker-php-ext-enable \
         swoole \
         redis \

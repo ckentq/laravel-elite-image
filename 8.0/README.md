@@ -165,6 +165,7 @@ supervisorctl start laravel-worker:*
 |xml|RSS、Excel...等功能|
 |zip|檔案壓縮(gzip)|
 |exif|讀取副檔名|
+|opcache|php優化加速組件|
 
 ### 相關支援
 
