@@ -33,7 +33,7 @@ COPY nginx.conf /etc/nginx/nginx.conf
 
 1. 下載PHP設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/5.6/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/5.6/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/5.6/config/www.conf`
 
 3. 設定dockerfile
 

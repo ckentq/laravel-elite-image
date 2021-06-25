@@ -11,20 +11,48 @@
 
 ### 快速啟動
 
-1. 安裝設定檔
+這個 Image 適用於所有 php 環境，以 Laravel Framework 為例，通過以下三個步驟，你將建立好一個 Laravel 網站
+
+1. 安裝 Laravel
+
+通過以下指令，你可以安裝最新版的 Laravel
 
 ```bash
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+bash -c "composer create-project --prefer-dist laravel/laravel example-app"
+```
+
+你可以通過修改指令中的 `example-app` 來改變專案資料夾名稱，例如：
+
+```bash
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+bash -c "composer create-project --prefer-dist laravel/laravel blog"
+```
+
+你還可以使用 = 或 : 作為分隔符指定版本，例如：
+
+```bash
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+bash -c "composer create-project --prefer-dist laravel/laravel=7.30.1 example-app"
+```
+
+2. 安裝環境啟動設定檔
+
+```bash
+cd example-app
 wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/setup/Dockerfile
 wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/setup/Envoy.blade.php
 wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/setup/docker-compose.yml.example
 cp docker-compose.yml.example docker-compose.yml
 ```
 
-2. 啟動環境(請先設定好.env)
+3. 啟動環境(請先設定好.env)
 
 ```bash
 docker-compose up -d
 ```
+
+按照上述步驟，你應該已經建立好一個 Laravel 網站， 現在你可以打開你的瀏覽器，輸入 `http://localhost/` ， 確認你的網站是否已經成功建立完成
 
 ### 標籤對應的Dockerfile
 
@@ -59,7 +87,7 @@ COPY nginx-swoole.conf /etc/nginx/nginx-swoole.conf
 
 1. 下載PHP設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.4/config/www.conf`
 
 3. 設定dockerfile
 
@@ -88,7 +116,11 @@ COPY supervisord.conf /etc/supervisord.conf
 COPY example.conf /etc/supervisord.d/example.conf
 ```
 ### 啟動腳本
-通過修改 `Envoy.blade.php` 設定程式啟動的流程
+
+通過修改 `Envoy.blade.php` 你可以設定程式啟動的流程
+
+- 建議在開發環境使用Nginx (Port 80) + PHP-FPM (Port 9000)
+- 建議在正式環境使用Nginx (Port 80) + Swoole (Port 7780)
 
 #### 啟動 Nginx (Port 80) + PHP-FPM (Port 9000)
 
@@ -102,7 +134,7 @@ supervisorctl start laravel-nginx:*
 
 #### 啟動 Nginx (Port 80) + Swoole (Port 7780)
 
-你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
+使用你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
 
 ```bash
 supervisord -c /etc/supervisord.conf

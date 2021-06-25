@@ -59,7 +59,7 @@ COPY nginx-swoole.conf /etc/nginx/nginx-swoole.conf
 
 1. 下載PHP設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/php.ini`
 
-2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/www.ini`
+2. 下載PHP-FPM設定檔 `wget https://github.com/LarvataTW/laravel-elite-image/raw/{version}/7.3/config/www.conf`
 
 3. 設定dockerfile
 
