@@ -2,12 +2,16 @@ FROM larvata/laravel-elite-image:latest-php7.3
 
 # # 圖片處理
 # RUN apk update \
-#     && apk add --no-cache --virtual .build-deps g++ make autoconf imagemagick-dev libpng-dev \
-#     && apk add --no-cache imagemagick libpng \
-#     && pecl install imagick \
+#     && apk add --no-cache --virtual .build-deps g++ make autoconf libtool libpng-dev pcre-dev \
+#     && apk add --no-cache freetype-dev libpng jpeg-dev imagemagick imagemagick-dev \
 #     && docker-php-ext-configure gd \
-#         --with-gd \
+#     --with-gd \
+#     --with-freetype-dir=/usr/include/ \
+#     --with-png-dir=/usr/include/ \
+#     --with-jpeg-dir=/usr/include/ \
 #     && docker-php-ext-install gd \
+#     && pecl install imagick-3.4.4 \
+#     && docker-php-ext-enable imagick \
 #     && apk del -f .build-deps \
 #     && rm -rf /var/cache/apk/* \
 #     && rm -rf /tmp/*

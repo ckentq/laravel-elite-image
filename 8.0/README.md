@@ -18,21 +18,21 @@
 通過以下指令，你可以安裝最新版的 Laravel
 
 ```bash
-docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php8.0 \
 bash -c "composer create-project --prefer-dist laravel/laravel example-app"
 ```
 
 你可以通過修改指令中的 `example-app` 來改變專案資料夾名稱，例如：
 
 ```bash
-docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php8.0 \
 bash -c "composer create-project --prefer-dist laravel/laravel blog"
 ```
 
 你還可以使用 = 或 : 作為分隔符指定版本，例如：
 
 ```bash
-docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php7.4 \
+docker run --rm -v $(pwd):/opt -w /opt larvata/laravel-elite-image:latest-php8.0 \
 bash -c "composer create-project --prefer-dist laravel/laravel=7.30.1 example-app"
 ```
 
