@@ -49,7 +49,7 @@ RUN apk update \
     && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/* \
-    && rm /etc/nginx/conf.d/default.conf \
+    && rm /etc/nginx/http.d/default.conf \
     && rm -rf /var/www/*
 
 # Configure nginx
