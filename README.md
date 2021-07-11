@@ -134,7 +134,7 @@ supervisorctl start laravel-nginx:*
 
 #### 啟動 Nginx (Port 80) + Swoole (Port 7780)
 
-使用你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
+你可以通過[Nginx設定檔](#設定-Nginx)，修改啟動Port
 
 ```bash
 supervisord -c /etc/supervisord.conf

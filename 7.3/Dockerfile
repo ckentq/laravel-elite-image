@@ -1,4 +1,4 @@
-FROM php:7.3-fpm-alpine
+FROM php:7.3-fpm-alpine3.13
 
 MAINTAINER Linc <qulamj@gmail.com>
 
@@ -49,15 +49,16 @@ RUN apk update \
     && apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/* \
-    && rm /etc/nginx/conf.d/default.conf \
+    && rm /etc/nginx/http.d/default.conf \
     && rm -rf /var/www/*
 
 # Configure nginx
 COPY config/nginx.conf /etc/nginx/nginx.conf
+COPY config/nginx-swoole.conf /etc/nginx/nginx-swoole.conf
 
 # Configure PHP-FPM
 COPY config/www.conf /usr/local/etc/php-fpm.d/www.conf
-COPY config/php.ini /usr/local/etc/php/conf.d/custom.ini
+COPY config/php.ini /usr/local/etc/php/php.ini
 
 # supervisord
 COPY config/supervisord.conf /etc/supervisord.conf
