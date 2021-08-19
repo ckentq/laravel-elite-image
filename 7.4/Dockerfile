@@ -1,4 +1,4 @@
-FROM php:7.4-fpm-alpine3.13
+FROM php:7.4-fpm-alpine
 
 MAINTAINER Linc <qulamj@gmail.com>
 
