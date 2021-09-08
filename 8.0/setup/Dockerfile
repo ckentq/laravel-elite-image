@@ -3,10 +3,10 @@ FROM larvata/laravel-elite-image:latest-php8.0
 # # 圖片處理
 # RUN apk update \
 #     && apk add --no-cache --virtual .build-deps g++ make autoconf libtool libpng-dev pcre-dev \
-#     && apk add --no-cache freetype-dev libpng jpeg-dev imagemagick imagemagick-dev \
+#     && apk add --no-cache libgomp freetype-dev libpng jpeg-dev imagemagick imagemagick-dev \
 #     && docker-php-ext-configure gd --with-freetype --with-jpeg \
 #     && docker-php-ext-install gd \
-#     && pecl install imagick \
+#     && pecl install imagick-3.5.1 \
 #     && docker-php-ext-enable imagick \
 #     && apk del -f .build-deps \
 #     && rm -rf /var/cache/apk/* \
