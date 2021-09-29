@@ -33,4 +33,4 @@ COPY ./ /var/www
 # RUN rm -rf /var/www/vendor && rm -rf /var/www/node_modules && mv /tmp/vendor/ /var/www && mv /tmp/node_modules/ /var/www && composer dump-autoload && yarn production
 
 # Composer load
-RUN rm -rf /var/www/vendor && mv /tmp/vendor/ /var/www && composer dump-autoload
+RUN rm -rf /var/www/vendor && mv /tmp/composer.lock /var/www/composer.lock && mv /tmp/vendor/ /var/www && composer dump-autoload
