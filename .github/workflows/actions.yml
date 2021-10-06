@@ -8,7 +8,7 @@ on:
 
     # Publish `v1.2.3` tags as releases.
     tags:
-      - v*
+      - 'v*.*.*'
 
 env:
   IMAGE_NAME: laravel-elite-image
@@ -20,6 +20,24 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     steps:
+      -
+        name: Docker meta
+        id: meta
+        uses: docker/metadata-action@v3
+        with:
+          # list of Docker images to use as base name for tags
+          images: |
+            ${DOCKERHUB_OWNER}/${IMAGE_NAME}
+            ghcr.io/${GITHUB_OWNER}/${IMAGE_NAME}
+          # generate Docker tags based on the following events/attributes
+          tags: |
+            type=schedule
+            type=ref,event=branch
+            type=ref,event=pr
+            type=semver,pattern={{version}}
+            type=semver,pattern={{major}}.{{minor}}
+            type=semver,pattern={{major}}
+            type=sha
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -46,6 +64,5 @@ jobs:
         with:
           push: true
           context: 8.0/
-          tags: |
-            $DOCKERHUB_OWNER/$IMAGE_NAME:latest
-            $GITHUB_OWNER/$IMAGE_NAME:latest
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
