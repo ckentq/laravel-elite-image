@@ -67,6 +67,7 @@ COPY config/php.ini /usr/local/etc/php/php.ini
 COPY config/supervisord.conf /etc/supervisord.conf
 
 COPY ./supervisord.d /etc/supervisord.d
+COPY ./optional/octane /opt/octane
 
 WORKDIR /var/www
 
