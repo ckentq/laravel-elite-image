@@ -58,6 +58,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name : Save tag to env
+        run: |
+          echo 'TAG<<EOF'>> $GITHUB_ENV
+          echo ${GITHUB_REF/refs\/tags\//} >> ${GITHUB_ENV}
+          echo 'EOF' >> $GITHUB_ENV
       -
         name: Build and push
         id: docker_build
