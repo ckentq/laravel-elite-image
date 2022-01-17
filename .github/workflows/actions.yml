@@ -64,9 +64,9 @@ jobs:
 
       - name: Get correct version
         run: |
-          VERSION=( php5.6 php7.2 php7.3 php7.4 php8.0 )
+          VERSION=( 5.6 7.2 7.3 7.4 8.0 )
           for context in ${VERSION[@]}; do
-            if [ $(echo ${{env.TAG}} |grep -c ${context}) = "1" ]
+            if [ $(echo ${{env.TAG}} |grep -c "php${context}") = "1" ]
             then
               echo "CURRENT_VERSION=${context}" >> ${GITHUB_ENV}
               break
