@@ -59,17 +59,27 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name : Save tag to env
+      - name: Save tag to env
         run: |
-          echo 'TAG<<EOF'>> $GITHUB_ENV
-          echo ${GITHUB_REF/refs\/tags\//} >> ${GITHUB_ENV}
-          echo 'EOF' >> $GITHUB_ENV
+          echo "TAG=${GITHUB_REF/refs\/tags\//}" >> ${GITHUB_ENV}
+
+      - name: Get correct version
+        run: |
+          VERSION=( php5.6 php7.2 php7.3 php7.4 php8.0 )
+          for context in ${VERSION[@]}; do
+            if [ $(echo ${{env.TAG}} |grep -c ${context}) = "1" ]
+            then
+              echo "CURRENT_VERSION=${context}" >> ${GITHUB_ENV}
+              break
+            fi
+          done
+
       -
         name: Build and push
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-          push: false
-          context: 8.0/
+          push: true
+          context: "${{ env.CURRENT_VERSION }}"/
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
