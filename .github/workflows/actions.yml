@@ -16,7 +16,6 @@ jobs:
   docker:
     runs-on: ubuntu-latest
     # Publish `master` as Docker `latest` image.
-    if: github.ref == 'refs/heads/master'
     steps:
       -
         name: Checkout
