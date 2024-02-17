@@ -11,9 +11,9 @@ ENV PHPIZE_DEPS \
         oniguruma-dev
 
 # 安裝必要套件 && 安裝常用工具 && 安裝 composer && php 任務執行器
-RUN apk update \
-    && apk add --no-cache --virtual .build-deps $PHPIZE_DEPS \
-    && apk add --no-cache \
+RUN apk update
+RUN apk add --no-cache --virtual .build-deps $PHPIZE_DEPS
+RUN apk add --no-cache \
         libstdc++ \
         vim \
         bash \
@@ -25,24 +25,24 @@ RUN apk update \
     && pecl install \
         swoole \
         redis \
-        mcrypt-1.0.6 \
-    && docker-php-ext-configure opcache --enable-opcache \
-    && docker-php-ext-install \
+        mcrypt-1.0.6
+RUN docker-php-ext-configure opcache --enable-opcache
+RUN docker-php-ext-install \
         pdo_mysql \
         mysqli \
         zip \
         exif \
         opcache \
-        pcntl \
-    && docker-php-ext-enable \
+        pcntl
+RUN docker-php-ext-enable \
         swoole \
         redis \
-        mcrypt \
-    && chmod -R 755 /usr/local/lib/php/extensions \
+        mcrypt
+RUN chmod -R 755 /usr/local/lib/php/extensions \
     && curl -s https://getcomposer.org/installer | php -- --quiet --install-dir=/usr/bin --filename=composer \
     && composer global require "laravel/envoy" \
-    && chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy \
-    && apk del -f .build-deps \
+    && chmod +x ~/.composer/vendor/bin/envoy && ln -s ~/.composer/vendor/bin/envoy /usr/bin/envoy
+RUN apk del -f .build-deps \
     && rm -rf /var/cache/apk/* \
     && rm -rf /tmp/* \
     && rm /etc/nginx/http.d/default.conf \
