@@ -25,7 +25,7 @@ RUN apk add --no-cache \
     && pecl install \
         swoole \
         redis \
-        mcrypt-1.0.6
+        mcrypt-1.0.7
 RUN docker-php-ext-configure opcache --enable-opcache
 RUN docker-php-ext-install \
         pdo_mysql \
